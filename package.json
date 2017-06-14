@@ -22,5 +22,10 @@
   "bugs": {
     "url": "https://github.com/pubnub/chat-engine-tutorial/issues"
   },
-  "homepage": "https://github.com/pubnub/chat-engine-tutorial#readme"
+  "homepage": "https://github.com/pubnub/chat-engine-tutorial#readme",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "chat-engine": "^0.2.1",
+    "jquery": "^3.2.1"
+  }
 }
