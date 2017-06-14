@@ -257,6 +257,10 @@ Scroll down and enable PubNub Storage and Playback. "Retention" is how long mess
 
 ![](assets/README-755671fd.png)
 
+Click "Save Changes."
+
+![](assets/README-8e5db3c0.png)
+
 ## Start the Chat Engine
 
 In ```app.js```, add the line:
