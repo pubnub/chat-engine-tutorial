@@ -88,7 +88,7 @@ jQuery will provide us with some simple utilities for Javascript that will make 
 npm install jquery --save
 ```
 
-You don't have to use jQuery with PubNub Chat Engine. We could use Angular, React, or just vanilla Javscript. The [Chat Engine Examples](https://github.com/pubnub/chat-engine-examples) page has examples for these other frameworks.
+> You don't have to use jQuery with PubNub Chat Engine. We could use Angular, React, or just vanilla Javscript. The [Chat Engine Examples](https://github.com/pubnub/chat-engine-examples) page has examples for these other frameworks.
 
 ## Install PubNub Chat Engine
 
@@ -196,7 +196,99 @@ console.log(ChatEngineCore);
 
 Now we're all set up to create an app!
 
-# Me / Connect
+# Me / Connect / Configure
+
+In ```app.js``` add the following lines:
+
+```js
+const ChatEngine = ChatEngineCore.create({
+    publishKey: 'YOUR_PUB_KEY',
+    subscribeKey: 'YOUR_SUB_KEY'
+});
+```
+
+This is the PubNub Chat Engine initialization. All you need to supply is the first parameter; a set of PubNub publish and subscribe keys.
+
+> This paramter is actually a PubNub initialization. You can read more about all possible parameters [here](https://www.pubnub.com/docs/web-javascript/api-reference#init)
+
+> When using PubNub Chat Engine with the ```<script>``` tag, you can get the package from ```window.ChatEngineCore```.
+
+> You can use the NodeJS package with [WebPack](https://webpack.github.io/) and ```require``` as well.
+
+> See that ```const``` declaration? This tutorial (and PubNub Chat Engine) are in
+[es6](https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/ECMAScript_2015_support_in_Mozilla).
+
+## How to Get Your PubNub Keys
+
+Navigate to http://admin.pubnub.com and login or create an account. Don't worry, it's free!
+
+https://admin.pubnub.com
+
+Click "New App."
+
+![](assets/README-ddad3667.png)
+
+Give your new app a name and click "Create."
+
+![](assets/README-a6e543f2.png)
+
+Click on your keyset.
+
+![](assets/README-84f858cd.png)
+
+Copy and paste those keys into your ```app.js```.
+
+```js
+const ChatEngine = ChatEngineCore.create({
+    publishKey: 'YOUR_PUB_KEY',
+    subscribeKey: 'YOUR_SUB_KEY'
+});
+```
+
+![](assets/README-943bee9f.png)
+
+## Start the Chat Engine
+
+In ```app.js```, add the line:
+
+```js
+let me = ChatEngine.connect(username);
+```
+
+This connects to the PubNub Data Stream network on behalf of the browser running the code.
+
+### ChatEngine.connect()
+
+The function returns a ```User``` and connect to a global ```Chat```.
+
+PubNub Chat Engine is an object oriented framework, so when you see ```User``` and ```Chat```, it represents an actual object within the SDK.
+
+- ***User*** - A client. The browser window.
+- ***Chat*** - A chatroom that a ```User``` can join.
+
+### Me
+
+The ```User``` returned by the ```connect()``` method represents this browser window. We call that ```User``` ```me```.
+
+## Chats
+
+But what about chat rooms?
+
+In ```app.js```, add the following:
+
+```js
+let chat = new ChatEngine.Chat('tutorial-chat');
+```
+This creates a new ```Chat``` object. The ```Chat``` object represents a chatroom that connects one client to another.
+
+The ```Chat``` state is synchronized between all connected clients. When this client runs ```new ChatEngine.Chat()```, it connects to the PubNub network and gets information about that chat room.
+
+For example, ```chat.users``` contains a list of all the other ```User```s online in the chat. That list of users will update automatically.
+
+> Remember, those other ```User```s are ```me``` on someone else's computer. A real practice in empathy.
+
+### See who else is online
+
 # Chat room event overview and how it works
 # Build a chat room
 # See who's online in the room (remember me?)
