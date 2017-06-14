@@ -245,21 +245,31 @@ const ChatEngine = ChatEngineCore.create({
 });
 ```
 
-![](assets/README-943bee9f.png)
+Scroll down and enable PubNub Presence.
+
+![](assets/README-29b7db60.png)
+
+Enable PubNub Access Manager.
+
+![](assets/README-ad7eda0b.png)
+
+Scroll down and enable PubNub Storage and Playback. "Retention" is how long messages will be stored in chatrooms.
+
+![](assets/README-755671fd.png)
 
 ## Start the Chat Engine
 
 In ```app.js```, add the line:
 
 ```js
-let me = ChatEngine.connect(username);
+let me = ChatEngine.connect('ian');
 ```
 
 This connects to the PubNub Data Stream network on behalf of the browser running the code.
 
 ### ChatEngine.connect()
 
-The function returns a ```User``` and connect to a global ```Chat```.
+The function returns a ```User``` and connect to a global ```Chat```. The paramter ```ian``` is a unique identifier for the new ```User```.
 
 PubNub Chat Engine is an object oriented framework, so when you see ```User``` and ```Chat```, it represents an actual object within the SDK.
 
@@ -288,6 +298,16 @@ For example, ```chat.users``` contains a list of all the other ```User```s onlin
 > Remember, those other ```User```s are ```me``` on someone else's computer. A real practice in empathy.
 
 ### See who else is online
+
+```js
+console.log(chat.users);
+```
+
+```js
+chat.on('$online', (newUser) -> {
+  console.log('new user', newUser);
+});
+```
 
 # Chat room event overview and how it works
 # Build a chat room
