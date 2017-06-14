@@ -171,7 +171,30 @@ If you get an error alert, make sure you ran all the previous setup instructions
 
 ## Configure PubNub keys and how to get them
 
+Update ```index.html``` to look like this:
 
+```html
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.css" />
+  </head>
+  <body>
+    <div class="container">
+    </div>
+    <script type="text/javascript" src="node_modules/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <script type="text/javascript" src="node_modules/chat-engine/dist/chat-engine.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+  </body>
+</html>
+```
+
+Create a new file called ```app.js``` in the local dir. In ```app.js```:.
+```js
+console.log(ChatEngineCore);
+```
+
+Now we're all set up to create an app!
 
 # Me / Connect
 # Chat room event overview and how it works
