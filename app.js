@@ -27,3 +27,17 @@ chat.on('$.ready', (payload) => {
 chat.on('$.online', (payload) => {
   appendMessage('Status', payload.user.uuid + ' has come online!');
 });
+
+chat.on('message', (payload) => {
+  appendMessage(payload.sender.uuid, payload.data);
+});
+
+$("#message").keypress(function(event) {
+
+    if (event.which == 13) {
+        chat.emit('message', $("#message").val());
+        $("#message").val('');
+        event.preventDefault();
+    }
+
+});

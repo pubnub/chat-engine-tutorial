@@ -392,28 +392,90 @@ You should see a message showing that ```ian``` has come online and that connect
 
 # Chat room event overview and how it works
 
-But what about other messages? Like the ones you type in yourself.
+But what about other messages? The life-blood of chat! Custom messages sent by each user.
+
+Let's define a custom event so we can send and recieve text messages between windows.
+
+## Broadcasting Events
+
+First, let's ```emit()``` a simple text string as a ```message``` event over the ```Chat```.
+
+```js
+chat.emit('message', 'Hey, this is Ian!');
+```
+
+This will broadcast the ```message``` event over the internet to all other clients.
+
+## Subscribing to Events
 
 You can subscribe to custom events by supplying an event name as first parameter in ```on()````.
 
 ```js
-chat.on('message', (payload) {
-  appendMessage(payload.user.uuid, payload.data);
+chat.on('message', (payload) => {
+  appendMessage(payload.sender.uuid, payload.data);
 });
 ```
 
-Anytime your or any other client uses the ```emit()``` function with the same event name, it will fire the callback defined in ```on()``` on every machine subscribed to it.
+Anytime your or any other client uses the ```emit()``` function with the same event name, it will fire the callback defined in ```on()``` on every client subscribed to it.
 
-```js
-chat.emit('message', 'hey, this is Ian!');
+## Event Payload
+
+Notice how we use ```payload.sender.uuid``` and ```payload.data``` in the callback?
+
+The ```payload``` value is auto-magically populated with handy references to the ```Chat``` and ```User``` related to this event.
+
+The property ```payload.chat``` is the ```Chat``` that event was broadcast broadcast on, and the ```payload.user``` is the ```User ``` that broadcast the message. You can find the actual message contents supplied to ```emit()``` within the ```payload.data``` property.
+
+> The ```User``` and ```Chat``` properties are both fully interactive instances. Therefor, you can do things like ```payload.chat.emit('message')``` to automatically reply to a message.
+
+## Adding a Textbox
+
+Let's build a textbox that will let us send our own message.
+
+We'll add this line under the ```#log``` container.
+
+```html
+<input type="text" class="form-control" id="message" placeholder="Your message here...">
 ```
 
-This will log
+And then wrap the ```chat.emit()``` code in a jQuery function.
+
+```js
+$("#message").keypress(function(event) {
+
+    if (event.which == 13) {
+        chat.emit('message', $("#message").val());
+        $("#message").val('');
+        event.preventDefault();
+    }
+
+});
+```
+
+This function fires every time a key is pressed on the message input text area.
+
+If the key is ```13``` (Enter or Return), we use ```chat.emit()``` to broadcast the value of the the text input to all other clients.
+
+The text input is then cleared and we user ```event.preventDefault()``` to prevent the enter or return key from bubbling (allowing other things to happen).
+
+## Send a Message
+
+Now, when you type in the message input and hit "Enter", the message is sent over the network to all other machines!
+
+Try it with two browsers!
+
+![](assets/README-316b8bd1.gif)
+
+But hey, it looks like every message is sent by "ian". Shouldn't different browsers have different names? How do we differentiate between clients?
+
+## Add Usernames
 
 Outputs
 
 
+# plugin for random usernames
 
+# state
 
 # Build a chat room
 # Send a user a private message
