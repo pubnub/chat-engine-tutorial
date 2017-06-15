@@ -249,9 +249,9 @@ Scroll down and enable PubNub Presence.
 
 ![](assets/README-29b7db60.png)
 
-Enable PubNub Access Manager.
-
-![](assets/README-ad7eda0b.png)
+> Not yet supported.
+> Enable PubNub Access Manager.
+> ![](assets/README-ad7eda0b.png)
 
 Scroll down and enable PubNub Storage and Playback. "Retention" is how long messages will be stored in chatrooms.
 
@@ -299,23 +299,123 @@ The ```Chat``` state is synchronized between all connected clients. When this cl
 
 For example, ```chat.users``` contains a list of all the other ```User```s online in the chat. That list of users will update automatically.
 
+The client (```me```) joins ```Chat```s automatically when they are created on the client.
+
 > Remember, those other ```User```s are ```me``` on someone else's computer. A real practice in empathy.
 
 ### See who else is online
+
+A list of all the clients who have joined the chatroom is available from ```chat.users```.
 
 ```js
 console.log(chat.users);
 ```
 
+It returns a list of ```Users``` who have also joined this chat.
+
 ```js
-chat.on('$online', (newUser) -> {
+{
+  ian: {},
+  nick: {}
+}
+```
+
+When a new ```User``` comes online, the ```Chat``` emits the ```$.online``` event.
+
+```js
+chat.on('$.online', (newUser) -> {
   console.log('new user', newUser);
 });
 ```
 
+Chat Engine specific events begin with ```$```.
+
+For example, you can find out when you're connected to a chatroom by subscribing to the ```$.ready``` event.
+
+## Working with Chats and Users in jQuery
+
+Let's combine the information above into a small app that logs when you and other users come online.
+
+![](assets/README-c71c143b.png)
+
+First, we'll create a function to log messages into HTML.
+
+Add the following to the ```<body>``` of ```index.html``` to build a place-holder for our log.
+
+```html
+<div class="container">
+  <div class="row">
+      <div class="col-sm-6 col-sm-offset-3">
+        <div class="list-group" id="log">
+        </div>
+      </div>
+  </div>
+</div>
+```
+
+Next, we'll create a function that adds  ```username: text``` as a line in the log.
+
+```js
+const appendMessage = (username, text, extraClass = 'line') => {
+
+  let message =
+    $(`<div class="list-group-item" />`).addClass(extraClass)
+      .append($('<strong>').text(username + ': '))
+      .append($('<span>').text(text));
+
+  $('#log').append(message);
+
+  $("#log").animate({ scrollTop: $('#log').prop("scrollHeight") }, "slow");
+
+};
+```
+
+Then, listen for the ```$.ready``` event to find out when the client is connected to the ```Chat```.
+
+```js
+chat.on('$.ready', (payload) => {
+  appendMessage('Status', 'Connected to chat!');
+});
+```
+
+We can also subscribe to the ```$.online``` event to find out when other ```User```s are online.
+
+```js
+chat.on('$.online', (payload) => {
+  appendMessage('Status', payload.user.uuid + ' has come online!');
+});
+```
+
+You should see a message showing that ```ian``` has come online and that connection has been established.
+
+![](assets/README-c71c143b.png)
+
 # Chat room event overview and how it works
+
+But what about other messages? Like the ones you type in yourself.
+
+You can subscribe to custom events by supplying an event name as first parameter in ```on()````.
+
+```js
+chat.on('message', (payload) {
+  appendMessage(payload.user.uuid, payload.data);
+});
+```
+
+Anytime your or any other client uses the ```emit()``` function with the same event name, it will fire the callback defined in ```on()``` on every machine subscribed to it.
+
+```js
+chat.emit('message', 'hey, this is Ian!');
+```
+
+This will log
+
+Outputs
+
+
+
+
 # Build a chat room
-# See who's online in the room (remember me?)
 # Send a user a private message
 # See when a user does something somewhere else
 # Get the history of a room
