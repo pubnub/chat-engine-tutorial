@@ -245,6 +245,9 @@ const ChatEngine = ChatEngineCore.create({
 });
 ```
 
+![](assets/README-943bee9f.png)
+
+
 Scroll down and enable PubNub Presence.
 
 ![](assets/README-29b7db60.png)
@@ -469,6 +472,8 @@ Try it with two browsers!
 But hey, it looks like every message is sent by "ian". Shouldn't different browsers have different names? How do we differentiate between clients?
 
 ## Add Usernames
+
+
 
 Outputs
 
