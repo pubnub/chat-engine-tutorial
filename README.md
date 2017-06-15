@@ -359,10 +359,10 @@ Add the following to the ```<body>``` of ```index.html``` to build a place-holde
 Next, we'll create a function that adds  ```username: text``` as a line in the log.
 
 ```js
-const appendMessage = (username, text, extraClass = 'line') => {
+const appendMessage = (username, text) => {
 
   let message =
-    $(`<div class="list-group-item" />`).addClass(extraClass)
+    $(`<div class="list-group-item" />`)
       .append($('<strong>').text(username + ': '))
       .append($('<span>').text(text));
 
@@ -395,7 +395,7 @@ You should see a message showing that ```ian``` has come online and that connect
 
 # Chat room event overview and how it works
 
-But what about other messages? The life-blood of chat! Custom messages sent by each user.
+But what about custom messages? The life-blood of chat! Custom messages sent by each user.
 
 Let's define a custom event so we can send and recieve text messages between windows.
 
@@ -471,12 +471,51 @@ Try it with two browsers!
 
 But hey, it looks like every message is sent by "ian". Shouldn't different browsers have different names? How do we differentiate between clients?
 
-## Add Usernames
+## Add Usernames and State
 
+In order to give every user a unique name, let's create a function that returns a random animal.
 
+```js
+const getUsername = () => {
 
-Outputs
+  const animals = ['pigeon', 'seagull', 'bat', 'owl', 'sparrows', 'robin', 'bluebird', 'cardinal', 'hawk', 'fish', 'shrimp', 'frog', 'whale', 'shark', 'eel', 'seal', 'lobster', 'octopus', 'mole', 'shrew', 'rabbit', 'chipmunk', 'armadillo', 'dog', 'cat', 'lynx', 'mouse', 'lion', 'moose', 'horse', 'deer', 'raccoon', 'zebra', 'goat', 'cow', 'pig', 'tiger', 'wolf', 'pony', 'antelope', 'buffalo', 'camel', 'donkey', 'elk', 'fox', 'monkey', 'gazelle', 'impala', 'jaguar', 'leopard', 'lemur', 'yak', 'elephant', 'giraffe', 'hippopotamus', 'rhinoceros', 'grizzlybear'];
 
+  return animals[Math.floor(Math.random() * animals.length)];
+
+};
+```
+
+We can call ```getUsername()``` to get a random animal name. This will be our new username.
+
+Remember when we defined ```me``` and supplied ```ian``` as the first parameter of ```ChatEngine.connect()```? Well, we can supply whatever we want to use as the ```User``` identifier there. Let's use our new function!
+
+```js
+let me = ChatEngine.connect(getUsername());
+```
+
+Now every time we load the page, we'll have a different username.
+
+![](assets/README-98498584.png)
+
+But what if we want to add other information? Like a profile? Let's give each ```User``` a unique username color.
+
+```js
+const getColor = () => {
+
+  const colors =   ["AliceBlue","AntiqueWhite","Aqua","Aquamarine","Azure","Beige","Bisque","Black","BlanchedAlmond","Blue","BlueViolet","Brown","BurlyWood","CadetBlue","Chartreuse","Chocolate","Coral","CornflowerBlue","Cornsilk","Crimson","Cyan","DarkBlue","DarkCyan","DarkGoldenRod","DarkGray","DarkGrey","DarkGreen","DarkKhaki","DarkMagenta","DarkOliveGreen","Darkorange","DarkOrchid","DarkRed","DarkSalmon","DarkSeaGreen","DarkSlateBlue","DarkSlateGray","DarkSlateGrey","DarkTurquoise","DarkViolet","DeepPink","DeepSkyBlue","DimGray","DimGrey","DodgerBlue","FireBrick","FloralWhite","ForestGreen","Fuchsia","Gainsboro","GhostWhite","Gold","GoldenRod","Gray","Grey","Green","GreenYellow","HoneyDew","HotPink","IndianRed","Indigo","Ivory","Khaki","Lavender","LavenderBlush","LawnGreen","LemonChiffon","LightBlue","LightCoral","LightCyan","LightGoldenRodYellow","LightGray","LightGrey","LightGreen","LightPink","LightSalmon","LightSeaGreen","LightSkyBlue","LightSlateGray","LightSlateGrey","LightSteelBlue","LightYellow","Lime","LimeGreen","Linen","Magenta","Maroon","MediumAquaMarine","MediumBlue","MediumOrchid","MediumPurple","MediumSeaGreen","MediumSlateBlue","MediumSpringGreen","MediumTurquoise","MediumVioletRed","MidnightBlue","MintCream","MistyRose","Moccasin","NavajoWhite","Navy","OldLace","Olive","OliveDrab","Orange","OrangeRed","Orchid","PaleGoldenRod","PaleGreen","PaleTurquoise","PaleVioletRed","PapayaWhip","PeachPuff","Peru","Pink","Plum","PowderBlue","Purple","Red","RosyBrown","RoyalBlue","SaddleBrown","Salmon","SandyBrown","SeaGreen","SeaShell","Sienna","Silver","SkyBlue","SlateBlue","SlateGray","SlateGrey","Snow","SpringGreen","SteelBlue","Tan","Teal","Thistle","Tomato","Turquoise","Violet","Wheat","White","WhiteSmoke","Yellow","YellowGreen"];
+
+  return colors[Math.floor(Math.random() * colors.length)];
+
+};
+```
+
+We'll edit the ```connect()``` function again, but this time we're going to use the second parameter.
+
+```js
+let me = ChatEngine.connect(getUsername(), {color: getColor()});
+```
+
+This parameter represents the ```User``` state.
 
 # plugin for random usernames
 
