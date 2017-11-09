@@ -1,11 +1,10 @@
 # PubNub Chat Engine Tutorial
 
-Hey there and welcome to the PubNub Chat Engine tutorial. Today we'll be walking through the steps to build a super charged chat application
-with PubNub Chat Engine.
+Hey there and welcome to the PubNub Chat Engine tutorial. Today we'll be walking through the steps to build a super charged chat application with PubNub Chat Engine.
 
 ## What is PubNub Chat Engine
 
-The PubNub Chat Engine is a new Javascript framework that sits on top of the PubNub SDK. The PubNub JS SDK is a low level toolset for creating realtime Javascript applications. PubNub Chat Engine wraps those tools into handy features made especially for chat applications.
+The PubNub Chat Engine is a new Javascript framework that sits on top of the PubNub SDK. PubNub data stream network for creating applications. PubNub Chat Engine wraps those tools into handy features made especially for chat applications.
 
 ## What is PubNub?
 
@@ -55,7 +54,7 @@ In your project directory, run this command to create a new package. Complete th
 npm init
 ```
 
-That'll create a ```package.json``` in your poject directory.
+That'll create a ```package.json``` in your project directory.
 
 ```json
 {
@@ -189,7 +188,10 @@ Update ```index.html``` to look like this:
 </html>
 ```
 
-Create a new file called ```app.js``` in the local dir. In ```app.js```:.
+Create a new file called ```app.js``` in the local directory.
+
+In ```app.js``` , add the following:
+
 ```js
 console.log(ChatEngineCore);
 ```
@@ -209,7 +211,7 @@ const ChatEngine = ChatEngineCore.create({
 
 This is the PubNub Chat Engine initialization. All you need to supply is the first parameter; a set of PubNub publish and subscribe keys.
 
-> This paramter is actually a PubNub initialization. You can read more about all possible parameters [here](https://www.pubnub.com/docs/web-javascript/api-reference#init)
+> This parameter is actually a PubNub initialization. You can read more about all possible parameters [here](https://www.pubnub.com/docs/web-javascript/api-reference#init)
 
 > When using PubNub Chat Engine with the ```<script>``` tag, you can get the package from ```window.ChatEngineCore```.
 
@@ -220,49 +222,7 @@ This is the PubNub Chat Engine initialization. All you need to supply is the fir
 
 ## How to Get Your PubNub Keys
 
-Navigate to http://admin.pubnub.com and login or create an account. Don't worry, it's free!
-
-https://admin.pubnub.com
-
-Click "New App."
-
-![](assets/README-ddad3667.png)
-
-Give your new app a name and click "Create."
-
-![](assets/README-a6e543f2.png)
-
-Click on your keyset.
-
-![](assets/README-84f858cd.png)
-
-Copy and paste those keys into your ```app.js```.
-
-```js
-const ChatEngine = ChatEngineCore.create({
-    publishKey: 'YOUR_PUB_KEY',
-    subscribeKey: 'YOUR_SUB_KEY'
-});
-```
-
-![](assets/README-943bee9f.png)
-
-
-Scroll down and enable PubNub Presence.
-
-![](assets/README-29b7db60.png)
-
-> Not yet supported.
-> Enable PubNub Access Manager.
-> ![](assets/README-ad7eda0b.png)
-
-Scroll down and enable PubNub Storage and Playback. "Retention" is how long messages will be stored in chatrooms.
-
-![](assets/README-755671fd.png)
-
-Click "Save Changes."
-
-![](assets/README-8e5db3c0.png)
+Run the setup app. Insert link here.
 
 ## Start the Chat Engine
 
@@ -272,20 +232,27 @@ In ```app.js```, add the line:
 let me = ChatEngine.connect('ian');
 ```
 
-This connects to the PubNub Data Stream network on behalf of the browser running the code.
+The function returns a ```User``` and connect to a global ```Chat```. The parameter ```ian``` is a unique identifier for the new ```User```. This connects to the PubNub Data Stream network on behalf of the browser running the code.
 
 ### ChatEngine.connect()
 
-The function returns a ```User``` and connect to a global ```Chat```. The paramter ```ian``` is a unique identifier for the new ```User```.
+This starts the SDK and fires an event called ```$.ready```. Always wait for the ```$.ready``` event before working with ChatEngine.
+
+```js
+ChatEngine.on('$.ready', (data) => {
+    let me = data.me;
+});
+```
 
 PubNub Chat Engine is an object oriented framework, so when you see ```User``` and ```Chat```, it represents an actual object within the SDK.
 
-- ***User*** - A client. The browser window.
+- ***User*** - A client who is also connected to ChatEngine.
+- ***Me*** - A **User** that represents this browser window.
 - ***Chat*** - A chatroom that a ```User``` can join.
 
 ### Me
 
-The ```User``` returned by the ```connect()``` method represents this browser window. We call that ```User``` ```me```.
+The ```User``` returned by the ```connect()``` method represents this browser window. We call that ```User``` ```Me```.
 
 ## Chats
 
@@ -296,6 +263,7 @@ In ```app.js```, add the following:
 ```js
 let chat = new ChatEngine.Chat('tutorial-chat');
 ```
+
 This creates a new ```Chat``` object. The ```Chat``` object represents a chatroom that connects one client to another.
 
 The ```Chat``` state is synchronized between all connected clients. When this client runs ```new ChatEngine.Chat()```, it connects to the PubNub network and gets information about that chat room.
@@ -323,17 +291,25 @@ It returns a list of ```Users``` who have also joined this chat.
 }
 ```
 
-When a new ```User``` comes online, the ```Chat``` emits the ```$.online``` event.
+When a new ```User``` comes online, the ```Chat``` emits the ```$.online.join``` event.
 
 ```js
-chat.on('$.online', (newUser) -> {
+chat.on('$.online.join', (newUser) -> {
+  console.log('new user', newUser);
+});
+```
+
+If a ```User``` is already online when you join a chat, the ```Chat``` emits the ```$.online.here``` event.
+
+```js
+chat.on('$.online.here', (newUser) -> {
   console.log('new user', newUser);
 });
 ```
 
 Chat Engine specific events begin with ```$```.
 
-For example, you can find out when you're connected to a chatroom by subscribing to the ```$.ready``` event.
+For example, you can find out when you're connected to a ```Chat``` by subscribing to ```Chat.on('$.connected')```.
 
 ## Working with Chats and Users in jQuery
 
@@ -376,18 +352,20 @@ const appendMessage = (username, text) => {
 Then, listen for the ```$.ready``` event to find out when the client is connected to the ```Chat```.
 
 ```js
-chat.on('$.ready', (payload) => {
+chat.on('$.connected', (payload) => {
   appendMessage('Status', 'Connected to chat!');
 });
 ```
 
-We can also subscribe to the ```$.online``` event to find out when other ```User```s are online.
+We can also subscribe to the ```$.online.*``` event to find out when other ```User```s are online.
 
 ```js
-chat.on('$.online', (payload) => {
-  appendMessage('Status', payload.user.uuid + ' has come online!');
+chat.on('$.online.*', (payload) => {
+  appendMessage('Status', payload.sender.uuid + ' has come online!');
 });
 ```
+
+The ```*``` syntax matches all online events, including ```$.online.join``` and ```$.online.here```.
 
 You should see a message showing that ```ian``` has come online and that connection has been established.
 
@@ -427,7 +405,7 @@ Notice how we use ```payload.sender.uuid``` and ```payload.data``` in the callba
 
 The ```payload``` value is auto-magically populated with handy references to the ```Chat``` and ```User``` related to this event.
 
-The property ```payload.chat``` is the ```Chat``` that event was broadcast broadcast on, and the ```payload.user``` is the ```User ``` that broadcast the message. You can find the actual message contents supplied to ```emit()``` within the ```payload.data``` property.
+The property ```payload.chat``` is the ```Chat``` that event was broadcast broadcast on, and the ```payload.sender``` is the ```User ``` that broadcast the message. You can find the actual message contents supplied to ```emit()``` within the ```payload.data``` property.
 
 > The ```User``` and ```Chat``` properties are both fully interactive instances. Therefor, you can do things like ```payload.chat.emit('message')``` to automatically reply to a message.
 
@@ -477,11 +455,8 @@ In order to give every user a unique name, let's create a function that returns 
 
 ```js
 const getUsername = () => {
-
-  const animals = ['pigeon', 'seagull', 'bat', 'owl', 'sparrows', 'robin', 'bluebird', 'cardinal', 'hawk', 'fish', 'shrimp', 'frog', 'whale', 'shark', 'eel', 'seal', 'lobster', 'octopus', 'mole', 'shrew', 'rabbit', 'chipmunk', 'armadillo', 'dog', 'cat', 'lynx', 'mouse', 'lion', 'moose', 'horse', 'deer', 'raccoon', 'zebra', 'goat', 'cow', 'pig', 'tiger', 'wolf', 'pony', 'antelope', 'buffalo', 'camel', 'donkey', 'elk', 'fox', 'monkey', 'gazelle', 'impala', 'jaguar', 'leopard', 'lemur', 'yak', 'elephant', 'giraffe', 'hippopotamus', 'rhinoceros', 'grizzlybear'];
-
+  const animals = ['zebra', 'goat', 'cow', 'pig', 'tiger', 'wolf', 'pony', 'antelope'];
   return animals[Math.floor(Math.random() * animals.length)];
-
 };
 ```
 
@@ -501,11 +476,8 @@ But what if we want to add other information? Like a profile? Let's give each ``
 
 ```js
 const getColor = () => {
-
-  const colors =   ["AliceBlue","AntiqueWhite","Aqua","Aquamarine","Azure","Beige","Bisque","Black","BlanchedAlmond","Blue","BlueViolet","Brown","BurlyWood","CadetBlue","Chartreuse","Chocolate","Coral","CornflowerBlue","Cornsilk","Crimson","Cyan","DarkBlue","DarkCyan","DarkGoldenRod","DarkGray","DarkGrey","DarkGreen","DarkKhaki","DarkMagenta","DarkOliveGreen","Darkorange","DarkOrchid","DarkRed","DarkSalmon","DarkSeaGreen","DarkSlateBlue","DarkSlateGray","DarkSlateGrey","DarkTurquoise","DarkViolet","DeepPink","DeepSkyBlue","DimGray","DimGrey","DodgerBlue","FireBrick","FloralWhite","ForestGreen","Fuchsia","Gainsboro","GhostWhite","Gold","GoldenRod","Gray","Grey","Green","GreenYellow","HoneyDew","HotPink","IndianRed","Indigo","Ivory","Khaki","Lavender","LavenderBlush","LawnGreen","LemonChiffon","LightBlue","LightCoral","LightCyan","LightGoldenRodYellow","LightGray","LightGrey","LightGreen","LightPink","LightSalmon","LightSeaGreen","LightSkyBlue","LightSlateGray","LightSlateGrey","LightSteelBlue","LightYellow","Lime","LimeGreen","Linen","Magenta","Maroon","MediumAquaMarine","MediumBlue","MediumOrchid","MediumPurple","MediumSeaGreen","MediumSlateBlue","MediumSpringGreen","MediumTurquoise","MediumVioletRed","MidnightBlue","MintCream","MistyRose","Moccasin","NavajoWhite","Navy","OldLace","Olive","OliveDrab","Orange","OrangeRed","Orchid","PaleGoldenRod","PaleGreen","PaleTurquoise","PaleVioletRed","PapayaWhip","PeachPuff","Peru","Pink","Plum","PowderBlue","Purple","Red","RosyBrown","RoyalBlue","SaddleBrown","Salmon","SandyBrown","SeaGreen","SeaShell","Sienna","Silver","SkyBlue","SlateBlue","SlateGray","SlateGrey","Snow","SpringGreen","SteelBlue","Tan","Teal","Thistle","Tomato","Turquoise","Violet","Wheat","White","WhiteSmoke","Yellow","YellowGreen"];
-
+  const colors =   ["Red", "Orange", "Yellow", "Green", "Blue", "Purple", "Teal"];
   return colors[Math.floor(Math.random() * colors.length)];
-
 };
 ```
 
@@ -517,14 +489,14 @@ let me = ChatEngine.connect(getUsername(), {color: getColor()});
 
 This parameter represents the ```User``` state.
 
-# plugin for random usernames
+Now when a user comes online, you can get their color from ```payload.sender.state.color```.
 
-# state
+```js
+chat.on('$.online.here', (payload) => {
+  appendMessage('Status', payload.user.uuid + ' is in the channel! Their color is ' + payload.user.state.color + '.');
+});
 
-# Build a chat room
-# Send a user a private message
-# See when a user does something somewhere else
-# Get the history of a room
-# Make another event type (add an image via a url)
-# Add a plugin
-# Make your own plugin
+chat.on('$.online.join', (payload) => {
+  appendMessage('Status', payload.user.uuid + ' has come online! Their color is ' + payload.user.state.color + '.');
+});
+```

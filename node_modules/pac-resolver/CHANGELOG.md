@@ -1,18 +1,31 @@
+3.0.0 / 2017-06-13
+==================
+
+* [[`bc67e2f3c6`](https://github.com/TooTallNate/node-pac-resolver/commit/bc67e2f3c6)] - **BREAKING**: return a Promise from `FindProxyForURL()` (Nathan Rajlich)
+* [[`d75f37bd85`](https://github.com/TooTallNate/node-pac-resolver/commit/d75f37bd85)] - document Promise based API (Nathan Rajlich)
+* [[`e746acef18`](https://github.com/TooTallNate/node-pac-resolver/commit/e746acef18)] - coerce the input JS into a String (Nathan Rajlich)
+* [[`bb61571ec9`](https://github.com/TooTallNate/node-pac-resolver/commit/bb61571ec9)] - update "mocha" to v3.4.2 (Nathan Rajlich)
+* [[`ab5177faa4`](https://github.com/TooTallNate/node-pac-resolver/commit/ab5177faa4)] - add "use strict" (Nathan Rajlich)
+* [[`db58c2c5e8`](https://github.com/TooTallNate/node-pac-resolver/commit/db58c2c5e8)] - update dependencies (Nathan Rajlich)
+* [[`28ddb49d7b`](https://github.com/TooTallNate/node-pac-resolver/commit/28ddb49d7b)] - remove Node.js 0.8 npm update command from Travis-CI (Nathan Rajlich)
+* [[`2289c0478c`](https://github.com/TooTallNate/node-pac-resolver/commit/2289c0478c)] - fix commit URLs in changelog (Nathan Rajlich)
+* [[`132efe7c15`](https://github.com/TooTallNate/node-pac-resolver/commit/132efe7c15)] - test Node 8 in Travis (Nathan Rajlich)
+
 2.0.0 / 2016-09-26
 ==================
 
-* [[`df860eb96b`](https://github.com/TooTallNate/pac-resolver/commit/df860eb96b)] - **BREAKING** remove "regenerator", drops Node.js < v1 support (Nathan Rajlich)
+* [[`df860eb96b`](https://github.com/TooTallNate/node-pac-resolver/commit/df860eb96b)] - **BREAKING** remove "regenerator", drops Node.js < v1 support (Nathan Rajlich)
 
 1.3.0 / 2016-09-26
 ==================
 
-* [[`58a3f9e62e`](https://github.com/TooTallNate/pac-resolver/commit/58a3f9e62e)] - Implemented `timeRange` function (Utsav Kesharwani) (#15)
-* [[`a93a815f0d`](https://github.com/TooTallNate/pac-resolver/commit/a93a815f0d)] - Implemented `weekdayRange` function (Utsav Kesharwani) (#14)
-* [[`8af3e689eb`](https://github.com/TooTallNate/pac-resolver/commit/8af3e689eb)] - **test**: fix typo in test names (Nathan Rajlich)
-* [[`e0ddf63765`](https://github.com/TooTallNate/pac-resolver/commit/e0ddf63765)] - **travis**: test Node.js v0.8, v1, v2, v3, v4, v5, and v6 (Nathan Rajlich)
-* [[`e3c28eedec`](https://github.com/TooTallNate/pac-resolver/commit/e3c28eedec)] - **myIpAddress**: fallback to querying local system for IP (tehdeadone) (#10)
-* [[`40de3f9a22`](https://github.com/TooTallNate/pac-resolver/commit/40de3f9a22)] - **package**: require "degenerator" at least v1.0.2 (Nathan Rajlich)
-* [[`29009b3c38`](https://github.com/TooTallNate/pac-resolver/commit/29009b3c38)] - **package**: specify any "mocha" v2 (Nathan Rajlich)
+* [[`58a3f9e62e`](https://github.com/TooTallNate/node-pac-resolver/commit/58a3f9e62e)] - Implemented `timeRange` function (Utsav Kesharwani) (#15)
+* [[`a93a815f0d`](https://github.com/TooTallNate/node-pac-resolver/commit/a93a815f0d)] - Implemented `weekdayRange` function (Utsav Kesharwani) (#14)
+* [[`8af3e689eb`](https://github.com/TooTallNate/node-pac-resolver/commit/8af3e689eb)] - **test**: fix typo in test names (Nathan Rajlich)
+* [[`e0ddf63765`](https://github.com/TooTallNate/node-pac-resolver/commit/e0ddf63765)] - **travis**: test Node.js v0.8, v1, v2, v3, v4, v5, and v6 (Nathan Rajlich)
+* [[`e3c28eedec`](https://github.com/TooTallNate/node-pac-resolver/commit/e3c28eedec)] - **myIpAddress**: fallback to querying local system for IP (tehdeadone) (#10)
+* [[`40de3f9a22`](https://github.com/TooTallNate/node-pac-resolver/commit/40de3f9a22)] - **package**: require "degenerator" at least v1.0.2 (Nathan Rajlich)
+* [[`29009b3c38`](https://github.com/TooTallNate/node-pac-resolver/commit/29009b3c38)] - **package**: specify any "mocha" v2 (Nathan Rajlich)
 
 1.2.6 / 2015-02-21
 ==================
