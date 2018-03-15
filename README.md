@@ -1,10 +1,10 @@
-# PubNub Chat Engine Tutorial
+# PubNub ChatEngine Tutorial
 
-Hey there and welcome to the PubNub Chat Engine tutorial. Today we'll be walking through the steps to build a super charged chat application with PubNub Chat Engine.
+Hey there and welcome to the PubNub ChatEngine tutorial. Today we'll be walking through the steps to build a super charged chat application with PubNub ChatEngine.
 
-## What is PubNub Chat Engine
+## What is PubNub ChatEngine
 
-The PubNub Chat Engine is a new Javascript framework that sits on top of the PubNub SDK. PubNub data stream network for creating applications. PubNub Chat Engine wraps those tools into handy features made especially for chat applications.
+The PubNub ChatEngine is a new Javascript framework that sits on top of the PubNub SDK. PubNub data stream network for creating applications. PubNub ChatEngine wraps those tools into handy features made especially for chat applications.
 
 ## What is PubNub?
 
@@ -19,7 +19,7 @@ Let's get started. In this tutorial, we'll be using:
 - NodeJS
 - Twitter Bootstrap
 - jQuery
-- PubNub Chat Engine
+- PubNub ChatEngine
 
 If you're not familiar with these, don't worry. They'll be helpful links along
 the way.
@@ -60,7 +60,7 @@ That'll create a ```package.json``` in your project directory.
 {
   "name": "chat-engine-tutorial",
   "version": "0.0.1",
-  "description": "An example PubNub Chat Engine Tutorial",
+  "description": "An example PubNub ChatEngine Tutorial",
   "main": "index.js",
   "author": "Ian Jennings"
 }
@@ -71,7 +71,7 @@ That'll create a ```package.json``` in your project directory.
 
 Twitter Bootstrap will make it easy for us to create user interface elements for our chat application.
 
-In fact, when using PubNub Chat Engine, creating the UI and hooking it up to the framework is about all you have to do.
+In fact, when using PubNub ChatEngine, creating the UI and hooking it up to the framework is about all you have to do.
 
 We'll use bootstrap 3 since it's the latest stable version. You can install it using npm by running:
 
@@ -87,17 +87,17 @@ jQuery will provide us with some simple utilities for Javascript that will make 
 npm install jquery --save
 ```
 
-> You don't have to use jQuery with PubNub Chat Engine. We could use Angular, React, or just vanilla Javscript. The [Chat Engine Examples](https://github.com/pubnub/chat-engine-examples) page has examples for these other frameworks.
+> You don't have to use jQuery with PubNub ChatEngine. We could use Angular, React, or just vanilla Javscript. The [Chat Engine Examples](https://github.com/pubnub/chat-engine-examples) page has examples for these other frameworks.
 
-## Install PubNub Chat Engine
+## Install PubNub ChatEngine
 
-Alright, now for the part you've probably never done before! Install PubNub Chat Engine by running:
+Alright, now for the part you've probably never done before! Install PubNub ChatEngine by running:
 
 ```sh
 npm install chat-engine@0.8.4 --save
 ```
 
-This will install the PubNub Chat Engine Javascript SDK into your ```node_modules``` directory.
+This will install the PubNub ChatEngine Javascript SDK into your ```node_modules``` directory.
 
 ## Install http-server globally
 
@@ -139,7 +139,7 @@ Create a new page called ```index.html``` and paste the following page in. It wi
       alert('Failed to load jQuery!');
     }
     if(typeof ChatEngineCore == "undefined") {
-      alert('Failed to load PubNub Chat Engine');
+      alert('Failed to load PubNub ChatEngine');
     }
     if($ && ChatEngineCore) {
       alert('It works!');
@@ -209,22 +209,22 @@ const ChatEngine = ChatEngineCore.create({
 });
 ```
 
-This is the PubNub Chat Engine initialization. All you need to supply is the first parameter; a set of PubNub publish and subscribe keys.
+This is the PubNub ChatEngine initialization. All you need to supply is the first parameter; a set of PubNub publish and subscribe keys.
 
 > This parameter is actually a PubNub initialization. You can read more about all possible parameters [here](https://www.pubnub.com/docs/web-javascript/api-reference#init)
 
-> When using PubNub Chat Engine with the ```<script>``` tag, you can get the package from ```window.ChatEngineCore```.
+> When using PubNub ChatEngine with the ```<script>``` tag, you can get the package from ```window.ChatEngineCore```.
 
 > You can use the NodeJS package with [WebPack](https://webpack.github.io/) and ```require``` as well.
 
-> See that ```const``` declaration? This tutorial (and PubNub Chat Engine) are in
+> See that ```const``` declaration? This tutorial (and PubNub ChatEngine) are in
 [es6](https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/ECMAScript_2015_support_in_Mozilla).
 
 ## How to Get Your PubNub Keys
 
 Run the setup app. Insert link here.
 
-## Start the Chat Engine
+## Start the ChatEngine
 
 In ```app.js```, add the line:
 
@@ -244,7 +244,7 @@ ChatEngine.on('$.ready', (data) => {
 });
 ```
 
-PubNub Chat Engine is an object oriented framework, so when you see ```User``` and ```Chat```, it represents an actual object within the SDK.
+PubNub ChatEngine is an object oriented framework, so when you see ```User``` and ```Chat```, it represents an actual object within the SDK.
 
 - ***User*** - A client who is also connected to ChatEngine.
 - ***Me*** - A **User** that represents this browser window.
@@ -307,7 +307,7 @@ chat.on('$.online.here', (newUser) -> {
 });
 ```
 
-Chat Engine specific events begin with ```$```.
+ChatEngine specific events begin with ```$```.
 
 For example, you can find out when you're connected to a ```Chat``` by subscribing to ```Chat.on('$.connected')```.
 
