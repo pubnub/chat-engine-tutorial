@@ -500,3 +500,7 @@ chat.on('$.online.join', (payload) => {
   appendMessage('Status', payload.user.uuid + ' has come online! Their color is ' + payload.user.state.color + '.');
 });
 ```
+
+## Support
+
+- If you **need help**, have a **general question** a **feature request** or to file a **bug**, contact <support@pubnub.com>
