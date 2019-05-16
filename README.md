@@ -1,3 +1,7 @@
+This repository is a part of the [ChatEngine Framework](https://github.com/pubnub/chat-engine).
+For more information on building chat applications with PubNub, see our
+[Chat Resource Center](http://www.pubnub.com/developers/chat-resource-center/).
+
 # PubNub ChatEngine Tutorial
 
 Hey there and welcome to the PubNub ChatEngine tutorial. Today we'll be walking through the steps to build a super charged chat application with PubNub ChatEngine.
@@ -500,3 +504,6 @@ chat.on('$.online.join', (payload) => {
   appendMessage('Status', payload.user.uuid + ' has come online! Their color is ' + payload.user.state.color + '.');
 });
 ```
+
+## Support
+- If you **need help**, have a **general question**, have a **feature request** or to file a **bug**, contact <support@pubnub.com>. 
