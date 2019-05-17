@@ -12,7 +12,7 @@ The PubNub ChatEngine is a new Javascript framework that sits on top of the PubN
 
 ## What is PubNub?
 
-PubNub is a global data stream network that helps anybody create real time applications. PubNub makes it easy for one computer to talk to another, which is the basis for chat!
+PubNub is a global data stream network that helps anybody create real time applications. PubNub makes it easy for one computer to talk to another, which is the basis for the chat!
 
 ---
 
@@ -30,9 +30,9 @@ the way.
 
 ## Install NodeJS
 
-"Hey, I thought we were building a front end app!?"" We are, but if you haven't been keeping up to date, you might not have noticed that NodeJS has become the go-to option for working with javascript packages.
+"Hey, I thought we were building a front end app!?" We are, but if you haven't been keeping up to date, you might not have noticed that NodeJS has become the go-to option for working with javascript packages.
 
-In this tutorial I'll be using NodeJS v6.11 which is the latest version as of this time of writing.
+In this tutorial, I'll be using NodeJS v6.11 which is the latest version as of this time of writing.
 
 If you're using NVM (Node Version Manager), you can install this version by running:
 
@@ -91,7 +91,7 @@ jQuery will provide us with some simple utilities for Javascript that will make 
 npm install jquery --save
 ```
 
-> You don't have to use jQuery with PubNub ChatEngine. We could use Angular, React, or just vanilla Javscript. The [Chat Engine Examples](https://github.com/pubnub/chat-engine-examples) page has examples for these other frameworks.
+> You don't have to use jQuery with PubNub ChatEngine. We could use Angular, React, or just vanilla Javascript. The [Chat Engine Examples](https://github.com/pubnub/chat-engine-examples) page has examples for these other frameworks.
 
 ## Install PubNub ChatEngine
 
@@ -236,7 +236,7 @@ In ```app.js```, add the line:
 let me = ChatEngine.connect('ian');
 ```
 
-The function returns a ```User``` and connect to a global ```Chat```. The parameter ```ian``` is a unique identifier for the new ```User```. This connects to the PubNub Data Stream network on behalf of the browser running the code.
+The function returns a ```User``` and connects to a global ```Chat```. The parameter ```ian``` is a unique identifier for the new ```User```. This connects to the PubNub Data Stream network on behalf of the browser running the code.
 
 ### ChatEngine.connect()
 
@@ -248,7 +248,7 @@ ChatEngine.on('$.ready', (data) => {
 });
 ```
 
-PubNub ChatEngine is an object oriented framework, so when you see ```User``` and ```Chat```, it represents an actual object within the SDK.
+PubNub ChatEngine is an object-oriented framework, so when you see ```User``` and ```Chat```, it represents an actual object within the SDK.
 
 - ***User*** - A client who is also connected to ChatEngine.
 - ***Me*** - A **User** that represents this browser window.
@@ -379,7 +379,7 @@ You should see a message showing that ```ian``` has come online and that connect
 
 But what about custom messages? The life-blood of chat! Custom messages sent by each user.
 
-Let's define a custom event so we can send and recieve text messages between windows.
+Let's define a custom event so we can send and receive text messages between windows.
 
 ## Broadcasting Events
 
@@ -393,7 +393,7 @@ This will broadcast the ```message``` event over the internet to all other clien
 
 ## Subscribing to Events
 
-You can subscribe to custom events by supplying an event name as first parameter in ```on()````.
+You can subscribe to custom events by supplying an event name as the first parameter in ```on()````.
 
 ```js
 chat.on('message', (payload) => {
@@ -401,17 +401,17 @@ chat.on('message', (payload) => {
 });
 ```
 
-Anytime your or any other client uses the ```emit()``` function with the same event name, it will fire the callback defined in ```on()``` on every client subscribed to it.
+Anytime you or any other client uses the ```emit()``` function with the same event name, it will fire the callback defined in ```on()``` on every client subscribed to it.
 
 ## Event Payload
 
 Notice how we use ```payload.sender.uuid``` and ```payload.data``` in the callback?
 
-The ```payload``` value is auto-magically populated with handy references to the ```Chat``` and ```User``` related to this event.
+The ```payload``` value is automagically populated with handy references to the ```Chat``` and ```User``` related to this event.
 
-The property ```payload.chat``` is the ```Chat``` that event was broadcast broadcast on, and the ```payload.sender``` is the ```User ``` that broadcast the message. You can find the actual message contents supplied to ```emit()``` within the ```payload.data``` property.
+The property ```payload.chat``` is the ```Chat``` that event was broadcast on and the ```payload.sender``` is the ```User ``` that broadcast the message. You can find the actual message contents supplied to ```emit()``` within the ```payload.data``` property.
 
-> The ```User``` and ```Chat``` properties are both fully interactive instances. Therefor, you can do things like ```payload.chat.emit('message')``` to automatically reply to a message.
+> The ```User``` and ```Chat``` properties are both fully interactive instances. Therefore, you can do things like ```payload.chat.emit('message')``` to automatically reply to a message.
 
 ## Adding a Textbox
 
@@ -439,7 +439,7 @@ $("#message").keypress(function(event) {
 
 This function fires every time a key is pressed on the message input text area.
 
-If the key is ```13``` (Enter or Return), we use ```chat.emit()``` to broadcast the value of the the text input to all other clients.
+If the key is ```13``` (Enter or Return), we use ```chat.emit()``` to broadcast the value of the text input to all other clients.
 
 The text input is then cleared and we user ```event.preventDefault()``` to prevent the enter or return key from bubbling (allowing other things to happen).
 
