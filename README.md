@@ -135,10 +135,10 @@ Create a new page called ```index.html``` and paste the following page in. It wi
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="node_modules/jquery/dist/jquery.js"></script>
-    <script type="text/javascript" src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
-    <script type="text/javascript" src="node_modules/chat-engine/dist/chat-engine.js"></script>
-    <script type="text/javascript">
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="node_modules/chat-engine/dist/chat-engine.js"></script>
+    <script>
     if(typeof $ == "undefined") {
       alert('Failed to load jQuery!');
     }
@@ -184,10 +184,10 @@ Update ```index.html``` to look like this:
   <body>
     <div class="container">
     </div>
-    <script type="text/javascript" src="node_modules/jquery/dist/jquery.js"></script>
-    <script type="text/javascript" src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
-    <script type="text/javascript" src="node_modules/chat-engine/dist/chat-engine.js"></script>
-    <script type="text/javascript" src="app.js"></script>
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="node_modules/chat-engine/dist/chat-engine.js"></script>
+    <script src="app.js"></script>
   </body>
 </html>
 ```
